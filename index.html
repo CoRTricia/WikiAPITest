@@ -8,7 +8,8 @@
       //Rest API Doc - https://en.wikipedia.org/api/rest_v1/#/Page%20content
       //               https://en.wikipedia.org/api/rest_v1/#/Page%20content/get_page_summary__title_
 
-      var title = "Anna May Wong";
+      //var title = "Hisaye Yamamoto"; //no picture
+      var title = "Constance Wu"; //has picture
       //var baseurl = "https://en.wikipedia.org/api/rest_v1/page/summary/Anna%20May%20Wong";
       //var baseurl = "http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=Anna%20May%20Wong";
       var baseurl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + title;
@@ -22,13 +23,16 @@ $.ajax({
     success: function (data) {
         console.log("data: ", data);
 	console.log("title: ", data['title']);
-	console.log("thumbnail: ", data['thumbnail']['source']);
-	console.log("originalimage: ", data['originalimage']['source']);
 	console.log("extract_html: ", data['extract_html']);
 
-	document.getElementById("myImg").src = data['thumbnail']['source']; 
-	document.getElementById("myImg").height = data['thumbnail']['height']; 
-	document.getElementById("myImg").width = data['thumbnail']['width']; 
+	if (data.hasOwnProperty('thumbnail')) {
+		console.log("thumbnail: ", data['thumbnail']['source']);
+		//console.log("originalimage: ", data['originalimage']['source']);
+		document.getElementById("myImg").src = data['thumbnail']['source']; 
+		document.getElementById("myImg").height = data['thumbnail']['height']; 
+		document.getElementById("myImg").width = data['thumbnail']['width']; 
+	}
+
 	document.getElementById("demo").innerHTML = data['extract_html']; 
 
     },
@@ -39,9 +43,3 @@ $.ajax({
     </script>
   </head>
   <body>
-	<img id="myImg"></img>
-
-	<p id="demo"></p>
-  </body>
-</html>
-
