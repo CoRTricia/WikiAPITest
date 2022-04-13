@@ -1,0 +1,33 @@
+<html>
+<head>
+<script type="text/javascript">
+
+var popupWindow=null;
+
+function child_open(url) {
+
+  if(popupWindow && !popupWindow.closed)
+    popupWindow.focus();
+  else {
+    var wwidth = 1200;
+    var wheight = 800;
+    var left = (screen.width / 2) - (wwidth / 2);
+    var top = (screen.height / 2) - (wheight / 2);
+    popupWindow = window.open(url,"_blank","directories=no,status=no,menubar=no,toolbar=no,status=no,scrollbars=yes,width=" + wwidth + ",height=" + wheight + ",top=" + top + ",left=" + left);
+  }
+}
+
+function parent_disable() {
+  if(popupWindow && !popupWindow.closed)
+    popupWindow.focus();
+}
+
+</script>
+
+</head>
+
+  <body onFocus="parent_disable();" onclick="parent_disable();">
+     <a href="javascript:child_open('https://en.wikipedia.org/api/rest_v1/page/html/Anna_May_Wong')">Click me</a>
+  </body>    
+
+</html>
